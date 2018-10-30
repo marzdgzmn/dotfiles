@@ -1,0 +1,19 @@
+#!/bin/sh
+
+COLOR="#839496"  # Default Color
+STATUS=$(cat /sys/class/power_supply/BAT0/status | sed -e "s/,//g;s/Discharging//;s/Charging//;s/Unknown//;s/Full//;s/ 0*/ /g;s/ :/ /g")
+CAP=$(cat /sys/class/power_supply/BAT0/capacity)
+
+if [ $CAP -lt 60 ]; then
+  COLOR="#00ff00"
+fi
+
+if [ $CAP -lt 30 ]; then
+  COLOR="#d70a53"
+fi
+
+RES="<span font_desc='Icons'>$STATUS</span> $CAP%"
+
+echo $RES
+echo $RES
+echo $COLOR
