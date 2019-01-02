@@ -1,92 +1,84 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+" Section: Plugins {{{1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin('~/.vim/plugged')
 
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" Syntax and language specific
+Plug 'tpope/vim-git'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'othree/html5.vim'
+Plug 'leshill/vim-json'
+Plug 'tpope/vim-markdown'
+Plug 'ElmCast/elm-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
+Plug 'tpope/vim-sleuth'
+Plug 'tweekmonster/django-plus.vim'
+"Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+Plug 'zsh-users/zsh-syntax-highlighting'
+Plug 'tomlion/vim-solidity'
+Plug 'flowtype/vim-flow'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Color Scheme
+Plug 'sheerun/vim-polyglot'
+Plug 'trevordmiller/nova-vim'
 
-" Dependencies of snipmate
-Plugin "MarcWeber/vim-addon-mw-utils"
-Plugin "tomtom/tlib_vim"
-Plugin "honza/vim-snippets"
+" Format
+Plug 'prettier/vim-prettier'
 
-" Snippets for use
-Plugin 'garbas/vim-snipmate'
+" Actual Plugs
+Plug 'vimlab/split-term.vim'
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-repeat'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-bundler'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'gorkunov/smartpairs.vim'
+Plug 'thinca/vim-visualstar'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-vinegar'
+Plug 'Shougo/neosnippet.vim'
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-endwise'
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons' " icons for nerdtree
+Plug 'embear/vim-localvimrc'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'joshdick/onedark.vim'
+" Plug 'NLKNguyen/papercolor-theme'
+Plug 'bling/vim-airline'
 
-" Git tools
-Plugin 'tpope/vim-fugitive'
+" Ether
+Plug 'tomlion/vim-solidity'
 
-" Rails
-Plugin 'tpope/vim-rails.git'
+call plug#end()
+"}}}1
 
-" Vim-Ruby
-Plugin 'vim-ruby/vim-ruby'
-
-" Commenting and uncommenting stuff
-Plugin 'tomtom/tcomment_vim'
-
-" Surround code
-Plugin 'tpope/vim-surround'
-
-" Every one should have a pair (Autogenerate pairs for "{[( )
-Plugin 'jiangmiao/auto-pairs'
-
-" Tab completions
-Plugin 'ervandew/supertab'
-
-" Fuzzy finder for vim (CTRL+P)
-Plugin 'kien/ctrlp.vim'
-
-" For tests
-Plugin 'janko-m/vim-test'
-
-" Tree Explorer
-Plugin 'scrooloose/nerdtree'
-
-" Dispatch test runner to tmux pane
-Plugin 'tpope/vim-dispatch'
-
-" Syntastic
-Plugin 'scrooloose/syntastic'
-
-" vim-colors-solarized
-Plugin 'altercation/vim-colors-solarized'
-
-" Zsh syntax highlighting
-Plugin 'zsh-users/zsh-syntax-highlighting'
-
-" vim-airline
-Plugin 'bling/vim-airline'
-
-" Tagbar
-Plugin 'majutsushi/tagbar'
-
-" NerdTree Syntax Highlight
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-" Icons for NerdTree
-Plugin 'ryanoasis/vim-devicons'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-"filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+colorscheme nova
 
 set tags=./tags; " Set tags directory
 set encoding=UTF-8
@@ -104,9 +96,16 @@ augroup END
 
 " Indentation
 set autoindent 
-set expandtab
-set shiftwidth=2
+set shiftwidth=2 
+
+" Tabs
+set tabstop=2
 set softtabstop=2
+set expandtab
+
+" Format Options
+set formatoptions=tcrq
+set textwidth=80
 
 " Show trailing whispace and spaces before a tab:
 :highlight ExtraWhitespace ctermbg=red guibg=red
@@ -128,6 +127,7 @@ nmap <Leader><CR> :nohlsearch<cr>
 map <Leader>p :bp<CR> " ,p previous buffer
 map <Leader>n :bn<CR> " ,n next buffer
 map <Leader>d :bd<CR> " ,d delete buffer
+nnoremap <leader>l :ls<CR>:b<space>
 
 map <Leader>c :call <CR>
 nmap <silent> <leader>c :TestFile<CR>
@@ -137,6 +137,10 @@ map <leader>t :A<CR> " \t to jump to test file
 map <leader>r :r<cr> " \t to jump to related file
 
 set laststatus=2
+
+" Split resizing
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " no arrow keys 
 inoremap <Up> <NOP>
@@ -154,9 +158,9 @@ cno jj <c-c>
 vno v <esc>
 
 " highlight current line
-set cursorline
+" set cursorline
 " Highlight active column
-set cuc cul"
+" set cuc cul"
 
 " Tab completion
 set wildmode=list:longest,list:full
@@ -171,10 +175,19 @@ map <leader>q :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeWinSize = 20 
-let NERDTreeQuitOnOpen = 1
+let NERDTreeQuitOnOpen = 0
 let NERDTreeMapToggleBookmarks='b'
 let NERDTreeShowBookmarks=1
 let NERDTreeHighlightCursorline=1
+
+" Ale
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
+" Dispatch
+autocmd FileType ruby let b:dispatch = 'rspec %'
+nnoremap <F9> :Dispatch!<CR>
 
 """"""""""""""""""""""""""""""""
 " BACKUP / TMP FILES
