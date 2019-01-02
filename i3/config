@@ -52,6 +52,7 @@ bar {
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 #Lock
+# Change to betterlockscree
 # https://github.com/pavanjadhaw/betterlockscreen
 
 # set desktop background with custom effect
